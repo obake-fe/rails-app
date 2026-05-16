@@ -1,19 +1,16 @@
 class HelloController < ApplicationController
   def index
-    # @title = "Hello, World!"
-    # @message = "This is a sample page."
-    if params[:msg] != nil then
-      @title = params[:msg]
+    if request.post? then
+      @title = "Hello, POST!"
+      @message = "You submitted: #{params[:input1]}"
+      @value = params[:input1]
+
+      redirect_to action: :index, input1: params[:input1], title: "from POST", msg: "from POST"
     else
-      @title = "Index"
+      @title = params[:title] || "Hello, GET!"
+      @message =  params[:msg] || "This is a sample page."
+      @value = params[:input1] || "default value"
     end
-    @message = "This is a redirect sample page."
-    #   @msg = params[:msg]
-    # else
-    #   @msg = "Hello, World!"
-    # end
-    # html = "<html><body><h1>#{@msg}</h1></body></html>"
-    # render html: html.html_safe
   end
 
   def other

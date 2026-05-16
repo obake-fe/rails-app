@@ -14,5 +14,6 @@ Rails.application.routes.draw do
 
   get 'hello/index'
   get 'hello' => 'hello#index'
+  post 'hello' => 'hello#index'
   get 'hello/other' => 'hello#other'
 end

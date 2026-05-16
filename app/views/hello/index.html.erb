@@ -1,2 +1,7 @@
 <h1 class='display-4'><%= @title %></h1>
 <p><%= @message %></p>
+
+<%= form_with url: "/hello", method: "post" do |form| %>
+  <%= form.text_field :input1, value: @value, class: "form-control" %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+<% end %>

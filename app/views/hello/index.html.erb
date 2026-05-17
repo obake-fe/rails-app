@@ -1,7 +1,27 @@
 <h1 class='display-4'><%= @title %></h1>
 <p><%= @message %></p>
 
-<%= form_with url: "/hello", method: "post" do |form| %>
-  <%= form.text_field :input1, value: @value, class: "form-control" %>
-  <%= form.submit "Submit", class: "btn btn-primary" %>
+<% if @contact.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @contact.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
+
+<%= form_with model: @contact, url: hello_path, method: "post" do |f| %>
+  <%= f.text_field :name, class: "form-control" %>
+  <%= f.text_field :email, class: "form-control" %>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>
+<hr />
+<p>Contacts:</p>
+<ul class="list-group">
+  <% @contacts.each do |contact| %>
+    <li class="list-group-item">
+      <%= contact.name %> [<%= contact.email %>]
+    </li>
+  <% end %>
+</ul>

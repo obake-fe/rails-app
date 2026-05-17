@@ -1,16 +1,33 @@
 class HelloController < ApplicationController
-  def index
-    if request.post? then
-      @title = "Hello, POST!"
-      @message = "You submitted: #{params[:input1]}"
-      @value = params[:input1]
+  @@contacts = []
 
-      redirect_to action: :index, input1: params[:input1], title: "from POST", msg: "from POST"
+  def initialize
+    super
+    @title = "ActiveModel Sample"
+  end
+
+  def index
+    @contacts = @@contacts
+
+    if request.post?
+      @contact = Contact.new(contact_params)
+
+      if @contact.valid?
+        @message = "Contact saved successfully"
+        @contacts << @contact
+        redirect_to action: :index, title: @title, msg: @message
+      else
+        @message = "Contact is invalid: " + @contact.errors.full_messages.join(", ")
+        render :index, status: :unprocessable_entity
+      end
     else
-      @title = params[:title] || "Hello, GET!"
-      @message =  params[:msg] || "This is a sample page."
-      @value = params[:input1] || "default value"
+      @contact = Contact.new()
+      @message = params[:msg]? params[:msg] : "Welcome to the ActiveModel sample app!"
     end
+  end
+
+  def contact_params
+    params.require(:contact).permit(:name, :email)
   end
 
   def other

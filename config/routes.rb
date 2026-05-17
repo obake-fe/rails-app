@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  get "people/add" => "people#add", as: :add_person
+  post "people/add" => "people#create", as: :create_person
   get "people/index"
+  get "people/:id" => "people#show", as: :person
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -13,8 +16,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  get 'hello/index'
-  get 'hello' => 'hello#index'
-  post 'hello' => 'hello#index'
-  get 'hello/other' => 'hello#other'
+  get "hello/index"
+  get "hello" => "hello#index"
+  post "hello" => "hello#index"
+  get "hello/other" => "hello#other"
 end

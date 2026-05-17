@@ -12,7 +12,9 @@
   <tbody>
     <% @data.each do |person| %>
       <tr>
-        <th scope="row"><%= person.id %></th>
+        <th scope="row">
+          <a href="<%= person_path(person) %>"><%= person.id %></a>
+        </th>
         <td><%= person.name %></td>
         <td><%= person.age %></td>
         <td><%= person.mail %></td>
